@@ -104,6 +104,7 @@ export default function Simulado() {
   const [respostas, setRespostas] = useState({})
   const [inicio, setInicio] = useState(0)
   const [resultado, setResultado] = useState(null)
+  const [confirmarBranco, setConfirmarBranco] = useState(false)
   const agora = useAgora(1000)
 
   const duracao = lista.length * MIN_POR_QUESTAO * 60000
@@ -130,6 +131,7 @@ export default function Simulado() {
     setLista(sortearQuestoes())
     setRespostas({})
     setIndice(0)
+    setConfirmarBranco(false)
     setInicio(Date.now())
     setFase('prova')
     window.scrollTo(0, 0)
@@ -229,14 +231,14 @@ export default function Simulado() {
             Próxima <ChevronRight className="h-5 w-5" />
           </button>
         ) : (
-          <button
-            onClick={() => (respondidas < lista.length ? window.confirm(`Você deixou ${lista.length - respondidas} em branco. Entregar mesmo assim?`) && entregar() : entregar())}
-            className="btn btn-primario"
-          >
-            <Flag className="h-5 w-5" /> Entregar
+          <button onClick={() => (respondidas < lista.length && !confirmarBranco ? setConfirmarBranco(true) : entregar())} className="btn btn-primario">
+            <Flag className="h-5 w-5" /> {confirmarBranco ? 'Entregar assim' : 'Entregar'}
           </button>
         )}
       </div>
+      {confirmarBranco && respondidas < lista.length && (
+        <p className="mt-2 text-center text-sm font-semibold text-rose-600">Você deixou {lista.length - respondidas} em branco. Toque em “Entregar assim” para confirmar.</p>
+      )}
       {indice + 1 < lista.length && respondidas === lista.length && (
         <button onClick={entregar} className="btn btn-primario mt-2 w-full">
           <Flag className="h-5 w-5" /> Entregar simulado

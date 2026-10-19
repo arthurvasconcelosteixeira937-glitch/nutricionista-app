@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { LogOut, Phone, Mail, Crown, ChevronRight, CalendarCheck, Backpack, ShoppingBag, FlaskConical } from 'lucide-react'
 import { CabecalhoPagina } from '../components/AppShell.jsx'
 import Compartilhar from '../components/Compartilhar.jsx'
@@ -12,11 +13,12 @@ export default function Perfil() {
   const nomePlano = modoTeste ? 'Modo teste (tudo liberado)' : PLANOS.find((p) => p.id === plano)?.nome
   const respondidas = Object.values(quiz).reduce((n, q) => n + q.respondidas, 0)
 
+  const [confirmando, setConfirmando] = useState(false)
+
   const confirmarSaida = () => {
-    if (window.confirm('Sair do app? Seu progresso salvo neste aparelho será apagado.')) {
-      sair()
-      navegar('/')
-    }
+    if (!confirmando) return setConfirmando(true)
+    sair()
+    navegar('/')
   }
 
   return (
@@ -85,8 +87,9 @@ export default function Perfil() {
       )}
 
       <button onClick={confirmarSaida} className="btn w-full bg-rose-50 text-rose-600 ring-1 ring-rose-200">
-        <LogOut className="h-5 w-5" /> Sair
+        <LogOut className="h-5 w-5" /> {confirmando ? 'Toque de novo para sair' : 'Sair'}
       </button>
+      {confirmando && <p className="-mt-2 text-center text-xs font-semibold text-rose-600">Ao sair, o progresso salvo neste aparelho será apagado.</p>}
       <p className="pb-2 text-center text-xs text-navy/40">Reta Final ENEM · Não somos afiliados ao INEP/MEC.</p>
     </div>
   )
