@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-navy-950 font-sans text-navy antialiased;
+    overscroll-behavior-y: none;
+  }
+  button {
+    touch-action: manipulation;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 py-3 text-base font-bold transition active:scale-[.97] disabled:opacity-60;
+  }
+  .btn-primario {
+    @apply bg-energia text-navy shadow-lg shadow-energia/30 hover:brightness-105;
+  }
+  .btn-escuro {
+    @apply bg-navy text-white hover:bg-navy-800;
+  }
+  .btn-claro {
+    @apply bg-white text-navy ring-1 ring-navy/10 hover:bg-navy-50;
+  }
+  .card {
+    @apply rounded-3xl bg-white p-4 shadow-sm ring-1 ring-navy/5;
+  }
+  .titulo-secao {
+    @apply text-2xl font-extrabold leading-tight sm:text-3xl;
+  }
+}
+
+/* Flashcard com efeito de virar */
+.flip {
+  perspective: 1200px;
+}
+.flip-inner {
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip.virado .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-verso {
+  transform: rotateY(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Reta Final ENEM",
+  "short_name": "Reta Final",
+  "description": "Revise tudo para o ENEM em 21 dias, direto do celular.",
+  "lang": "pt-BR",
+  "start_url": "./#/app",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0B1E3F",
+  "theme_color": "#0B1E3F",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

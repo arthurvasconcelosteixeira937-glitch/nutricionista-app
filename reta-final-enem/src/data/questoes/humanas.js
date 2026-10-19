@@ -1,0 +1,308 @@
+// QUESTÕES DE CIÊNCIAS HUMANAS – originais, estilo ENEM. Formato explicado em matematica.js.
+export default [
+  {
+    id: 'hum-01',
+    tema: 'Era Vargas',
+    resumo: 'hum-republica',
+    texto:
+      'Entre 1930 e 1945, Getúlio Vargas governou o Brasil. No período, foram criados o salário mínimo e a Justiça do Trabalho, e, em 1943, foi assinada a Consolidação das Leis do Trabalho (CLT). Ao mesmo tempo, sobretudo no Estado Novo (1937–1945), houve censura e perseguição a opositores.',
+    enunciado: 'O texto permite caracterizar a Era Vargas pela:',
+    alternativas: [
+      'ampliação de direitos trabalhistas combinada com centralização do poder e autoritarismo.',
+      'abolição da escravidão e proclamação da República.',
+      'transferência da capital federal para Brasília.',
+      'retirada do direito de voto das mulheres.',
+      'adoção do parlamentarismo como regime definitivo.',
+    ],
+    correta: 0,
+    explicacao:
+      'Vargas teve as duas faces: o “pai dos pobres” das leis trabalhistas e o ditador do Estado Novo. Ah, e foi no governo dele (1932) que as mulheres CONQUISTARAM o voto.',
+  },
+  {
+    id: 'hum-02',
+    tema: 'Ditadura militar (AI-5)',
+    resumo: 'hum-republica',
+    texto: 'Em dezembro de 1968, o governo militar editou o Ato Institucional nº 5 (AI-5).',
+    enunciado: 'Uma consequência do AI-5 foi:',
+    alternativas: [
+      'a ampliação da liberdade de imprensa no país.',
+      'o endurecimento do regime, com poder para fechar o Congresso e suspensão do habeas corpus para crimes políticos.',
+      'a convocação imediata de eleições diretas para presidente.',
+      'a anistia aos presos e exilados políticos.',
+      'a promulgação da Constituição de 1988.',
+    ],
+    correta: 1,
+    explicacao:
+      'O AI-5 marcou os “anos de chumbo”: Congresso fechado, censura, cassações e fim do habeas corpus para crimes políticos. A anistia só veio em 1979 e as Diretas, em 1989.',
+  },
+  {
+    id: 'hum-03',
+    tema: 'Constituição de 1988',
+    resumo: 'hum-republica',
+    texto: 'A Constituição de 1988, chamada de “Constituição Cidadã” por Ulysses Guimarães, foi elaborada após o fim da ditadura militar.',
+    enunciado: 'Uma marca dessa Constituição foi:',
+    alternativas: [
+      'proibir o voto dos analfabetos.',
+      'restabelecer a monarquia no Brasil.',
+      'ampliar direitos sociais e tornar o voto facultativo para jovens de 16 e 17 anos.',
+      'acabar com a eleição direta para presidente.',
+      'instituir o voto censitário, baseado na renda.',
+    ],
+    correta: 2,
+    explicacao:
+      'A Constituição de 1988 ampliou a cidadania: criou o SUS, garantiu direitos sociais, permitiu o voto facultativo a analfabetos, maiores de 70 anos e jovens de 16 e 17 anos.',
+  },
+  {
+    id: 'hum-04',
+    tema: 'Primeira República (coronelismo)',
+    resumo: 'hum-republica',
+    texto:
+      'Na Primeira República (1889–1930), em muitas cidades do interior, grandes fazendeiros controlavam a política local. O voto era aberto, ou seja, todos sabiam em quem cada eleitor votava.',
+    enunciado: 'Nesse contexto, o chamado “voto de cabresto” era:',
+    alternativas: [
+      'o voto secreto e obrigatório para todos os cidadãos.',
+      'o voto permitido exclusivamente às mulheres.',
+      'a eleição feita apenas pelo imperador.',
+      'o controle do voto dos eleitores pelos coronéis, favorecido pelo voto aberto.',
+      'o sistema de votação eletrônica.',
+    ],
+    correta: 3,
+    explicacao: 'Com o voto aberto, o coronel sabia em quem cada um votava e pressionava com favores ou ameaças. Isso sustentava a política do café com leite (SP e MG).',
+  },
+  {
+    id: 'hum-05',
+    tema: 'Revolução Industrial',
+    resumo: 'hum-globalizacao',
+    texto:
+      'Na Inglaterra do século XIX, as fábricas atraíram milhares de pessoas do campo. Famílias inteiras, inclusive crianças, trabalhavam até 16 horas por dia em ambientes insalubres.',
+    enunciado: 'Uma consequência social da Revolução Industrial descrita no texto foi:',
+    alternativas: [
+      'a redução da população das cidades inglesas.',
+      'o fim imediato do trabalho infantil.',
+      'o retorno ao sistema feudal de produção.',
+      'a diminuição da produção de mercadorias.',
+      'o crescimento das cidades e a formação do proletariado, com jornadas longas e condições precárias.',
+    ],
+    correta: 4,
+    explicacao:
+      'A industrialização provocou êxodo rural, urbanização acelerada e o surgimento da classe operária (proletariado), explorada em longas jornadas. Daí nasceram sindicatos e lutas por direitos.',
+  },
+  {
+    id: 'hum-06',
+    tema: 'Iluminismo',
+    resumo: 'hum-filosofia',
+    texto:
+      '“Tudo estaria perdido se o mesmo homem, ou o mesmo grupo, exercesse os três poderes: o de fazer as leis, o de executá-las e o de julgar.” (Ideia defendida por Montesquieu, adaptada.)',
+    enunciado: 'A ideia apresentada defende:',
+    alternativas: [
+      'a divisão do poder em Executivo, Legislativo e Judiciário, para evitar abusos.',
+      'o poder absoluto do rei, justificado pelo direito divino.',
+      'o fim da propriedade privada.',
+      'a união entre Igreja e Estado.',
+      'um governo exercido apenas por militares.',
+    ],
+    correta: 0,
+    explicacao: 'Montesquieu, pensador iluminista, criou a teoria da separação dos três poderes, base das democracias atuais — inclusive a brasileira.',
+  },
+  {
+    id: 'hum-07',
+    tema: 'Abolição e desigualdade racial',
+    resumo: 'hum-republica',
+    texto: 'Em 13 de maio de 1888, a Lei Áurea aboliu a escravidão no Brasil. Os libertos, porém, não receberam terras, indenização ou acesso garantido à educação.',
+    enunciado: 'Uma análise histórica coerente com o texto é a de que:',
+    alternativas: [
+      'os libertos receberam terras e indenizações do Estado.',
+      'a abolição ocorreu sem políticas de inclusão, o que contribuiu para desigualdades raciais duradouras.',
+      'o Brasil foi o primeiro país da América a abolir a escravidão.',
+      'a lei garantiu vagas reservadas em universidades já em 1888.',
+      'a abolição foi resultado exclusivo da vontade da princesa, sem pressão social.',
+    ],
+    correta: 1,
+    explicacao:
+      'Sem políticas de integração, a população negra foi empurrada para a marginalização, com efeitos até hoje. O Brasil foi o ÚLTIMO país da América a abolir, após muita pressão de abolicionistas e de resistência dos escravizados.',
+  },
+  {
+    id: 'hum-08',
+    tema: 'Efeito estufa',
+    resumo: 'hum-ambiental',
+    enunciado: 'Sobre o efeito estufa, é correto afirmar que ele:',
+    alternativas: [
+      'é causado pelo buraco na camada de ozônio.',
+      'é sempre prejudicial e deveria ser eliminado.',
+      'é um fenômeno natural, essencial à vida, mas vem sendo intensificado por emissões de gases como CO₂ e metano.',
+      'resfria o planeta ao bloquear a luz do Sol.',
+      'não tem relação com queimadas e desmatamento.',
+    ],
+    correta: 2,
+    explicacao:
+      'Sem efeito estufa, a Terra seria gelada demais. O problema é a intensificação causada por queima de combustíveis fósseis, queimadas e pecuária, que leva ao aquecimento global. Camada de ozônio é OUTRO assunto (protege dos raios UV).',
+  },
+  {
+    id: 'hum-09',
+    tema: 'Biomas brasileiros',
+    resumo: 'hum-ambiental',
+    texto:
+      'Bioma de vegetação savânica, com árvores de troncos retorcidos e raízes profundas. É chamado de “berço das águas” por abrigar nascentes de importantes bacias hidrográficas e sofre forte pressão da expansão da soja e da pecuária.',
+    enunciado: 'O bioma descrito é:',
+    alternativas: ['Caatinga', 'Pampa', 'Mata Atlântica', 'Cerrado', 'Pantanal'],
+    correta: 3,
+    explicacao:
+      'Cerrado: savana brasileira, troncos tortos, raízes profundas, “berço das águas” e principal fronteira agrícola do país. Caatinga é semiárida; Pampa tem campos no Sul.',
+  },
+  {
+    id: 'hum-10',
+    tema: 'Clima urbano (ilha de calor)',
+    resumo: 'hum-ambiental',
+    texto:
+      'Medições mostram que o centro de uma grande cidade, com muito asfalto, concreto e pouca vegetação, chega a ficar 5 °C mais quente do que bairros arborizados da periferia.',
+    enunciado: 'O fenômeno descrito é chamado de:',
+    alternativas: ['inversão térmica', 'chuva ácida', 'eutrofização', 'efeito orográfico', 'ilha de calor'],
+    correta: 4,
+    explicacao:
+      'Ilha de calor: áreas urbanas centrais retêm mais calor (asfalto e concreto absorvem radiação, falta vegetação e há calor de carros e prédios). Solução: mais áreas verdes.',
+  },
+  {
+    id: 'hum-11',
+    tema: 'Clima urbano (inversão térmica)',
+    resumo: 'hum-ambiental',
+    texto: 'Em manhãs frias de inverno, os moradores de São Paulo veem uma faixa cinzenta de poluição “parada” sobre a cidade, e aumentam os casos de problemas respiratórios.',
+    enunciado: 'O fenômeno atmosférico que explica essa situação é a:',
+    alternativas: [
+      'inversão térmica, que dificulta a dispersão dos poluentes.',
+      'chuva ácida, causada pelo excesso de chuvas no verão.',
+      'eutrofização dos rios urbanos.',
+      'ampliação da camada de ozônio.',
+      'erosão eólica do solo.',
+    ],
+    correta: 0,
+    explicacao:
+      'Na inversão térmica, uma camada de ar frio fica presa perto do solo, sob uma camada de ar mais quente. Sem subir, o ar não dispersa os poluentes. É mais comum no inverno.',
+  },
+  {
+    id: 'hum-12',
+    tema: 'Globalização',
+    resumo: 'hum-globalizacao',
+    texto: 'Um celular é projetado nos Estados Unidos, usa componentes fabricados na Coreia do Sul e em Taiwan, é montado na China e vendido no mundo inteiro.',
+    enunciado: 'Essa situação é um exemplo de:',
+    alternativas: [
+      'fim do comércio internacional.',
+      'fragmentação da produção em escala global, em busca de menores custos.',
+      'autossuficiência produtiva de cada país.',
+      'proibição da atuação de empresas multinacionais.',
+      'volta do mercantilismo do século XVI.',
+    ],
+    correta: 1,
+    explicacao: 'Na globalização, as empresas dividem a produção entre países para aproveitar mão de obra barata, tecnologia e incentivos fiscais. É a chamada “fábrica global”.',
+  },
+  {
+    id: 'hum-13',
+    tema: 'Matriz energética brasileira',
+    resumo: 'hum-ambiental',
+    enunciado: 'A matriz elétrica brasileira (fontes usadas para gerar eletricidade) se destaca no mundo por ser:',
+    alternativas: [
+      'baseada principalmente em usinas nucleares.',
+      'dependente do carvão mineral.',
+      'majoritariamente renovável, com destaque para as hidrelétricas.',
+      'baseada principalmente na queima de petróleo.',
+      'totalmente solar.',
+    ],
+    correta: 2,
+    explicacao:
+      'A maior parte da eletricidade brasileira vem de fontes renováveis — principalmente hidrelétricas, seguidas por eólica e solar, que crescem rápido. Mas hidrelétricas também têm impactos (alagamentos, remoção de comunidades).',
+  },
+  {
+    id: 'hum-14',
+    tema: 'Sociologia (Durkheim)',
+    resumo: 'hum-sociologia',
+    texto:
+      'Desde criança, aprendemos a cumprimentar as pessoas, a usar certas roupas em certos lugares e a seguir regras de convivência. Se alguém descumpre essas regras, sofre olhares de reprovação ou até punições.',
+    enunciado: 'Essas maneiras de agir, que existem antes do indivíduo e se impõem a ele, correspondem ao conceito de:',
+    alternativas: [
+      'mais-valia, de Karl Marx.',
+      'ação social, de Max Weber.',
+      'indústria cultural, de Adorno e Horkheimer.',
+      'fato social, de Émile Durkheim.',
+      'contrato social, de Rousseau.',
+    ],
+    correta: 3,
+    explicacao: 'Fato social (Durkheim) tem 3 características: é EXTERIOR (já existia antes de você), COERCITIVO (se impõe, com punição) e GERAL (vale para o grupo).',
+  },
+  {
+    id: 'hum-15',
+    tema: 'Sociologia (Marx)',
+    resumo: 'hum-sociologia',
+    texto:
+      'Em uma jornada de 8 horas, um operário produz, em apenas 3 horas, um valor equivalente ao seu salário. O valor produzido nas outras 5 horas fica com o dono da fábrica.',
+    enunciado: 'Para Karl Marx, esse valor excedente apropriado pelo capitalista chama-se:',
+    alternativas: ['fato social', 'ação social', 'modernidade líquida', 'anomia', 'mais-valia'],
+    correta: 4,
+    explicacao: 'Mais-valia é a diferença entre o valor que o trabalhador produz e o que ele recebe. Para Marx, é a base da exploração no capitalismo e do lucro.',
+  },
+  {
+    id: 'hum-16',
+    tema: 'Indústria cultural',
+    resumo: 'hum-sociologia',
+    texto:
+      'Músicas de 2 minutos com refrão repetido, feitas sob medida para virar trend; filmes que repetem a mesma fórmula de sucesso. Tudo produzido em série para ser vendido e consumido rapidamente.',
+    enunciado: 'A situação descrita se relaciona ao conceito de:',
+    alternativas: [
+      'indústria cultural, de Adorno e Horkheimer.',
+      'contrato social, de Hobbes.',
+      'solidariedade mecânica, de Durkheim.',
+      'imperativo categórico, de Kant.',
+      'maiêutica, de Sócrates.',
+    ],
+    correta: 0,
+    explicacao:
+      'Indústria cultural (Escola de Frankfurt): a cultura vira mercadoria padronizada, produzida em massa para o lucro, o que tende a reduzir o senso crítico do público.',
+  },
+  {
+    id: 'hum-17',
+    tema: 'Filosofia (ética de Kant)',
+    resumo: 'hum-filosofia',
+    texto: '“Age de tal modo que a regra da tua ação possa se tornar uma lei universal.”',
+    enunciado: 'Essa formulação, conhecida como imperativo categórico, é de:',
+    alternativas: ['Nicolau Maquiavel', 'Immanuel Kant', 'Thomas Hobbes', 'Friedrich Nietzsche', 'Platão'],
+    correta: 1,
+    explicacao: 'Para Kant, uma ação é moral se você puder querer que TODOS ajam igual. Ex.: mentir não passa no teste, porque se todos mentissem, ninguém confiaria em ninguém.',
+  },
+  {
+    id: 'hum-18',
+    tema: 'Filosofia política (contratualistas)',
+    resumo: 'hum-filosofia',
+    texto:
+      'Para um filósofo inglês do século XVII, sem um poder comum que imponha respeito, os seres humanos viveriam em uma “guerra de todos contra todos”. Por isso, deveriam abrir mão de parte da liberdade em favor de um Estado forte.',
+    enunciado: 'O pensador descrito é:',
+    alternativas: [
+      'Rousseau, para quem o ser humano nasce bom e a sociedade o corrompe.',
+      'Aristóteles, para quem o ser humano é um animal político.',
+      'Hobbes, que defendia um Estado forte (o Leviatã) para garantir paz e segurança.',
+      'Sócrates, criador do método da maiêutica.',
+      'Marx, defensor do fim do Estado e da sociedade sem classes.',
+    ],
+    correta: 2,
+    explicacao:
+      'Hobbes: “o homem é o lobo do homem”, estado de natureza = guerra, solução = Estado absoluto (Leviatã). Locke defendia direitos naturais; Rousseau, o “bom selvagem”.',
+  },
+  {
+    id: 'hum-19',
+    tema: 'Filosofia antiga (Sócrates)',
+    resumo: 'hum-filosofia',
+    texto:
+      'Sócrates conversava com as pessoas em praça pública fazendo perguntas, até que elas percebessem as contradições do que pensavam e chegassem, por si mesmas, a novas ideias.',
+    enunciado: 'Esse método é conhecido como:',
+    alternativas: ['dialética hegeliana', 'empirismo', 'dúvida metódica cartesiana', 'maiêutica', 'niilismo'],
+    correta: 3,
+    explicacao: 'Maiêutica significa “arte de fazer o parto”: Sócrates ajudava as pessoas a “dar à luz” as ideias por meio de perguntas. Ele partia do “só sei que nada sei”.',
+  },
+  {
+    id: 'hum-20',
+    tema: 'Fusos horários',
+    resumo: 'hum-ambiental',
+    texto: 'As provas do ENEM seguem o horário de Brasília. Manaus (AM) está 1 hora atrasada em relação a Brasília.',
+    enunciado: 'Se a prova começa às 13h30 no horário de Brasília, em Manaus ela começa às:',
+    alternativas: ['14h30', '13h30', '11h30', '10h30', '12h30'],
+    correta: 4,
+    explicacao: 'Manaus segue o fuso UTC−4, uma hora a menos que Brasília (UTC−3). 13h30 − 1h = 12h30. Quem mora em outro fuso precisa ficar MUITO atento no dia da prova!',
+  },
+]
