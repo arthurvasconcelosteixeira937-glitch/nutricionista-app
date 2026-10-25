@@ -1,0 +1,6 @@
+# Configuração das Edge Functions do Aluno em Dia
+# O webhook do Asaas não manda o token do Supabase, então ele não exige login.
+# A segurança dele é o token secreto ASAAS_WEBHOOK_TOKEN.
+
+[functions.asaas-webhook]
+verify_jwt = false
