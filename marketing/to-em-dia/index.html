@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tô em Dia</title>
+<meta name="description" content="Seu assistente do MEI no WhatsApp: lembra do DAS, cobra quem te deve e anota o que você ganhou. Entre na lista e garanta o preço de fundador.">
+<meta name="theme-color" content="#0B5D3B">
+<meta property="og:title" content="Tô em Dia: seu MEI em dia pelo WhatsApp">
+<meta property="og:description" content="Lembra do DAS, cobra quem te deve e anota o que você ganhou. Tudo pelo WhatsApp.">
+<meta property="og:locale" content="pt_BR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Layout: uma coluna no celular (o tráfego vem de anúncio no celular), duas colunas no hero em telas grandes. */
+:root {
+  --green: #0B5D3B;
+  --green-dark: #08452C;
+  --green-soft: #E8F4EC;
+  --sun: #FFB020;
+  --sun-soft: #FFF4DC;
+  --alert: #D9480F;
+  --ink: #14201A;
+  --muted: #5B6B62;
+  --line: #DCE7E0;
+  --paper: #FFFFFF;
+  --chat: #ECE5DD;
+  --bubble-in: #FFFFFF;
+  --bubble-out: #D9FDD3;
+  --display: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+}
+img { max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.15; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+p { margin: 0; }
+.wrap {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-left: max(18px, env(safe-area-inset-left, 0px));
+  padding-right: max(18px, env(safe-area-inset-right, 0px));
+}
+section { padding-block: 56px; }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--green); background: var(--paper); border: 1px solid var(--line);
+  padding: 6px 12px; border-radius: 999px;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 58px; padding: 0 26px; border: 0; border-radius: 16px;
+  font: 700 18px var(--display); text-decoration: none; cursor: pointer;
+  background: var(--sun); color: var(--ink);
+  box-shadow: 0 6px 0 #C98700;
+  transition: transform .1s, box-shadow .1s;
+}
+.btn:active { transform: translateY(4px); box-shadow: 0 2px 0 #C98700; }
+.btn:focus-visible, input:focus-visible, select:focus-visible, button:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+.btn.full { width: 100%; }
+.note { font-size: 15px; color: var(--muted); }
+
+/* Topo */
+.top { border-bottom: 1px solid var(--line); background: var(--paper); position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 62px; gap: 12px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; font: 800 22px var(--display); color: var(--green); text-decoration: none; }
+.logo svg { width: 34px; height: 34px; }
+.badge { font-size: 13px; font-weight: 700; color: var(--alert); background: #FFE8DD; padding: 5px 10px; border-radius: 999px; white-space: nowrap; }
+
+/* Hero */
+.hero { padding-block: 36px 48px; background: linear-gradient(180deg, var(--green-soft), var(--paper)); }
+.hero .wrap { display: grid; gap: 36px; align-items: center; }
+.hero h1 { font-size: clamp(2rem, 7.4vw, 3.4rem); margin-top: 16px; }
+.hero h1 em { font-style: normal; color: var(--alert); }
+.hero .sub { font-size: 19px; color: #2C3A33; margin-top: 14px; max-width: 34em; }
+.hero .cta { margin-top: 26px; display: grid; gap: 12px; max-width: 440px; }
+.founder { display: flex; gap: 10px; align-items: center; font-size: 15px; color: #2C3A33; }
+.founder strong { color: var(--green); }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--alert); flex-shrink: 0; box-shadow: 0 0 0 4px #FFE8DD; }
+
+/* Celular com conversa no WhatsApp */
+.phone { width: 100%; max-width: 330px; margin: 0 auto; border-radius: 34px; border: 9px solid #1C2621; background: var(--chat); overflow: hidden; box-shadow: 0 24px 60px rgba(11,93,59,.25); }
+.phone .bar { background: #075E54; color: #fff; display: flex; align-items: center; gap: 10px; padding: 12px 14px; font-weight: 700; font-size: 15px; }
+.phone .bar span { width: 32px; height: 32px; border-radius: 50%; background: var(--sun); display: grid; place-items: center; color: var(--ink); font: 800 14px var(--display); }
+.phone .bar small { display: block; font-weight: 400; opacity: .8; font-size: 12px; }
+.chat { padding: 14px 10px 18px; display: grid; gap: 8px; font-size: 14px; line-height: 1.4; }
+.msg { max-width: 86%; padding: 8px 10px 6px; border-radius: 10px; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+.msg.in { background: var(--bubble-in); justify-self: start; border-top-left-radius: 2px; }
+.msg.out { background: var(--bubble-out); justify-self: end; border-top-right-radius: 2px; }
+.msg time { display: block; text-align: right; font-size: 11px; color: #667781; margin-top: 2px; }
+.msg .pay { display: block; margin-top: 6px; color: #027EB5; font-weight: 700; }
+.audio { display: flex; align-items: center; gap: 8px; }
+.audio i { flex: 1; height: 4px; border-radius: 4px; background: repeating-linear-gradient(90deg, #8696A0 0 3px, transparent 3px 6px); }
+
+/* Dor */
+.pain { background: var(--ink); color: #F1F5F2; }
+.pain h2 { font-size: clamp(1.6rem, 5.6vw, 2.4rem); }
+.pain .grid { display: grid; gap: 14px; margin-top: 28px; }
+.stat { background: #1F2E27; border-radius: 18px; padding: 20px; }
+.stat b { display: block; font: 800 34px var(--display); color: var(--sun); font-variant-numeric: tabular-nums; }
+.stat p { color: #C9D6CF; margin-top: 4px; }
+.pain .src { margin-top: 18px; font-size: 13px; color: #8FA399; }
+
+/* O que faz */
+.features h2, .how h2, .faq h2, .signup h2 { font-size: clamp(1.6rem, 5.6vw, 2.4rem); }
+.features .grid { display: grid; gap: 14px; margin-top: 28px; }
+.feat { border: 1px solid var(--line); border-radius: 18px; padding: 20px; display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: start; }
+.feat .ic { width: 48px; height: 48px; border-radius: 14px; background: var(--green-soft); color: var(--green); display: grid; place-items: center; }
+.feat .ic svg { width: 26px; height: 26px; }
+.feat h3 { font-size: 19px; }
+.feat p { color: var(--muted); margin-top: 4px; }
+.feat.hl { border-color: var(--green); background: var(--green-soft); }
+
+/* Como funciona */
+.how { background: var(--green-soft); }
+.steps { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 14px; counter-reset: s; }
+.steps li { background: var(--paper); border-radius: 18px; padding: 20px 20px 20px 72px; position: relative; counter-increment: s; }
+.steps li::before { content: counter(s); position: absolute; left: 20px; top: 18px; width: 38px; height: 38px; border-radius: 50%; background: var(--green); color: #fff; font: 800 18px var(--display); display: grid; place-items: center; }
+.steps h3 { font-size: 18px; }
+.steps p { color: var(--muted); margin-top: 2px; }
+
+/* Preço */
+.price { text-align: center; }
+.price .card { max-width: 440px; margin: 24px auto 0; border: 2px solid var(--green); border-radius: 24px; padding: 28px 22px; position: relative; }
+.price .tag { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--alert); color: #fff; font: 700 13px var(--display); padding: 6px 14px; border-radius: 999px; white-space: nowrap; }
+.price .old { color: var(--muted); text-decoration: line-through; font-size: 18px; }
+.price .now { font: 800 48px var(--display); color: var(--green); }
+.price .now small { font: 600 18px var(--body); color: var(--muted); }
+.price ul { list-style: none; padding: 0; margin: 18px 0 24px; text-align: left; display: grid; gap: 10px; }
+.price li { display: flex; gap: 10px; }
+.price li::before { content: "✓"; color: var(--green); font-weight: 800; }
+
+/* FAQ */
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { list-style: none; cursor: pointer; min-height: 62px; display: flex; align-items: center; justify-content: space-between; gap: 14px; font-weight: 700; font-size: 18px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font: 700 26px var(--display); color: var(--green); }
+.faq details[open] summary::after { content: "–"; }
+.faq details p { padding-bottom: 18px; color: #2C3A33; }
+.faq .list { margin-top: 18px; max-width: 760px; }
+
+/* Cadastro */
+.signup { background: var(--green); color: #fff; }
+.signup .box { max-width: 520px; margin: 0 auto; }
+.signup .lead { color: #D6EBDF; margin-top: 10px; }
+form { margin-top: 24px; display: grid; gap: 16px; }
+label { display: grid; gap: 6px; font-weight: 700; font-size: 16px; }
+input, select {
+  width: 100%; min-height: 56px; border-radius: 14px; border: 2px solid transparent;
+  padding: 0 16px; font: 600 18px var(--body); color: var(--ink); background: #fff;
+}
+input[aria-invalid="true"], select[aria-invalid="true"] { border-color: var(--sun); }
+.err { color: var(--sun); font-size: 14px; font-weight: 700; min-height: 0; }
+.check { display: flex; gap: 12px; align-items: flex-start; font-weight: 600; font-size: 14px; color: #D6EBDF; }
+.check input { width: 24px; min-height: 24px; height: 24px; margin-top: 2px; flex-shrink: 0; }
+.done { display: none; text-align: center; background: #fff; color: var(--ink); border-radius: 22px; padding: 28px 22px; margin-top: 24px; }
+.done h3 { font-size: 24px; color: var(--green); }
+.done p { margin-top: 8px; }
+.done .btn { margin-top: 18px; background: #25D366; box-shadow: 0 6px 0 #179447; color: #fff; }
+
+footer { padding-block: 30px 40px; font-size: 14px; color: var(--muted); }
+footer .wrap { display: grid; gap: 8px; }
+
+/* Barra para ver as versões (só na prévia) */
+.switcher { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(14px + env(safe-area-inset-bottom, 0px)); z-index: 30; display: flex; gap: 4px; background: var(--ink); padding: 5px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+.switcher button { border: 0; border-radius: 999px; min-height: 40px; padding: 0 14px; font: 700 14px var(--body); background: transparent; color: #fff; cursor: pointer; }
+.switcher button[aria-pressed="true"] { background: var(--sun); color: var(--ink); }
+
+@media (min-width: 860px) {
+  .hero .wrap { grid-template-columns: 1.15fr .85fr; }
+  .pain .grid { grid-template-columns: repeat(3, 1fr); }
+  .features .grid { grid-template-columns: 1fr 1fr; }
+  .steps { grid-template-columns: repeat(3, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#topo" aria-label="Tô em Dia">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#0B5D3B"/><path d="M11 21l6 6 12-14" fill="none" stroke="#FFB020" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Tô em Dia
+    </a>
+    <span class="badge">Lançamento em breve</span>
+  </div>
+</header>
+
+<main id="topo">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="eyebrow" data-v="eyebrow">Para quem é MEI</span>
+        <h1 data-v="title">Não perca seu MEI nem sua <em>aposentadoria</em> por causa de um boleto esquecido</h1>
+        <p class="sub" data-v="sub">O Tô em Dia te lembra do DAS pelo WhatsApp antes do dia 20, cobra quem te deve e anota quanto você ganhou. Sem baixar aplicativo.</p>
+        <div class="cta">
+          <a class="btn full" href="#cadastro" data-cta="hero">Quero entrar na lista</a>
+          <p class="founder"><span class="dot"></span><span>Os <strong>100 primeiros</strong> pagam preço de fundador para sempre.</span></p>
+        </div>
+      </div>
+
+      <div class="phone" aria-label="Exemplo de conversa com o Tô em Dia no WhatsApp">
+        <div class="bar"><span>TD</span><div>Tô em Dia<small>online</small></div></div>
+        <div class="chat" data-v="chat"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pain">
+    <div class="wrap">
+      <h2 data-v="painTitle">O DAS vence todo dia 20. Esquecer custa caro.</h2>
+      <div class="grid" data-v="stats"></div>
+      <p class="src" data-v="src"></p>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="wrap">
+      <h2>Tudo pelo WhatsApp que você já usa</h2>
+      <div class="grid">
+        <div class="feat" data-feat="medo">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></div>
+          <div><h3>Lembra do DAS</h3><p>Aviso antes do dia 20, com o valor certo e o link do site oficial para pagar.</p></div>
+        </div>
+        <div class="feat" data-feat="calote">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="m22 2-7 20-4-9-9-4 20-7z"/></svg></div>
+          <div><h3>Cobra quem te deve</h3><p>Mensagem educada pronta, com sua chave Pix. Você só aperta enviar.</p></div>
+        </div>
+        <div class="feat" data-feat="audio">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
+          <div><h3>Anota o que você ganhou</h3><p>Mande um áudio: "recebi 150 da Dona Maria". Ele soma tudo pra você no fim do mês.</p></div>
+        </div>
+        <div class="feat">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div><h3>Avisa do limite e da declaração</h3><p>Te alerta quando chegar perto dos R$ 81 mil por ano e lembra da declaração anual até 31 de maio.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how">
+    <div class="wrap">
+      <h2>Como vai funcionar</h2>
+      <ol class="steps">
+        <li><h3>Você entra na lista</h3><p>Leva 30 segundos. Só nome e WhatsApp.</p></li>
+        <li><h3>A gente te chama no lançamento</h3><p>Você recebe o acesso no WhatsApp, com o preço de fundador garantido.</p></li>
+        <li><h3>Ele cuida do resto</h3><p>Lembretes, cobranças e as contas do mês chegam no seu WhatsApp.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="price">
+    <div class="wrap">
+      <h2>Preço de fundador</h2>
+      <p class="note" style="margin-top:8px">Só para os 100 primeiros da lista.</p>
+      <div class="card">
+        <span class="tag">Vagas limitadas</span>
+        <p class="old">R$ 29,90/mês</p>
+        <p class="now">R$ 14,90<small>/mês</small></p>
+        <p class="note">Esse preço fica pra sempre enquanto você for assinante.</p>
+        <ul>
+          <li>Lembrete do DAS todo mês</li>
+          <li>Cobrança de clientes com Pix</li>
+          <li>Controle do que você ganhou, por áudio</li>
+          <li>Aviso do limite de R$ 81 mil e da declaração anual</li>
+          <li>7 dias grátis para testar. Cancela quando quiser.</li>
+        </ul>
+        <a class="btn full" href="#cadastro" data-cta="preco">Garantir minha vaga</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq">
+    <div class="wrap">
+      <h2>Perguntas frequentes</h2>
+      <div class="list">
+        <details><summary>O Tô em Dia é do governo?</summary><p>Não. O Tô em Dia é uma empresa privada. A gente te lembra e te manda o link do site oficial do governo para você mesmo pagar o seu DAS.</p></details>
+        <details><summary>Preciso baixar aplicativo?</summary><p>Não. Funciona pelo WhatsApp que você já usa no celular.</p></details>
+        <details><summary>Vocês pagam o meu DAS?</summary><p>Não. O pagamento continua sendo seu, no site oficial. Nosso trabalho é não deixar você esquecer e te mostrar o valor certo.</p></details>
+        <details><summary>Quanto vai custar?</summary><p>O preço normal será R$ 29,90 por mês. Quem estiver entre os 100 primeiros da lista paga R$ 14,90 por mês para sempre. E dá para testar 7 dias grátis.</p></details>
+        <details><summary>Quando lança?</summary><p>Estamos finalizando agora. Quem está na lista recebe o acesso primeiro, direto no WhatsApp.</p></details>
+        <details><summary>Meus dados ficam seguros?</summary><p>Sim. Usamos seu nome e WhatsApp só para falar sobre o Tô em Dia, e você pode pedir para sair da lista quando quiser.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="signup" id="cadastro">
+    <div class="wrap">
+      <div class="box">
+        <h2 data-v="formTitle">Entre na lista e garanta R$ 14,90 por mês</h2>
+        <p class="lead">Leva 30 segundos. A gente te chama no WhatsApp quando lançar.</p>
+        <form id="form" novalidate>
+          <label>Seu nome
+            <input id="nome" name="nome" autocomplete="given-name" placeholder="Ex: Ana" maxlength="60">
+            <span class="err" id="nome-err"></span>
+          </label>
+          <label>Seu WhatsApp
+            <input id="whats" name="whats" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 91234-5678">
+            <span class="err" id="whats-err"></span>
+          </label>
+          <label>O que você faz?
+            <select id="trabalho" name="trabalho">
+              <option value="">Escolha uma opção</option>
+              <option>Beleza (manicure, cabeleireira, estética)</option>
+              <option>Limpeza / diarista</option>
+              <option>Obra e reforma (pedreiro, pintor, eletricista)</option>
+              <option>Venda de produtos</option>
+              <option>Comida (marmita, doces, salgados)</option>
+              <option>Motorista / entregas</option>
+              <option>Outro serviço</option>
+            </select>
+            <span class="err" id="trabalho-err"></span>
+          </label>
+          <label>Você tem algum DAS atrasado?
+            <select id="das" name="das">
+              <option value="">Escolha uma opção</option>
+              <option>Não, está tudo em dia</option>
+              <option>Sim, tenho atrasado</option>
+              <option>Não sei</option>
+              <option>Ainda não sou MEI</option>
+            </select>
+            <span class="err" id="das-err"></span>
+          </label>
+          <label class="check"><input type="checkbox" id="ok"> <span>Aceito receber mensagens do Tô em Dia no WhatsApp sobre o lançamento. Posso sair quando quiser.</span></label>
+          <span class="err" id="ok-err"></span>
+          <button class="btn full" type="submit" id="send">Quero minha vaga de fundador</button>
+        </form>
+        <div class="done" id="done" role="status">
+          <h3>Pronto, você está na lista!</h3>
+          <p>Sua vaga de fundador está reservada. Assim que lançar, a gente te chama no WhatsApp.</p>
+          <a class="btn" id="zap" href="#" target="_blank" rel="noopener" hidden>Falar com a gente no WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Tô em Dia</strong>. Assistente do MEI no WhatsApp.</p>
+    <p>O Tô em Dia não é um serviço do governo e não tem ligação com a Receita Federal. O pagamento do DAS é feito por você, nos canais oficiais.</p>
+  </div>
+</footer>
+
+<script>
+/* ===== CONFIGURAÇÃO: preencha antes de publicar ===== */
+var CONFIG = {
+  // Número que recebe os interessados (só números, com 55 e DDD). Ex: "5591981490959"
+  WHATSAPP: "",
+  // ID do Pixel da Meta (Gerenciador de Eventos). Deixe vazio para não usar.
+  PIXEL_ID: "",
+  // Link do Google Apps Script que salva os cadastros na planilha (veja o passo a passo).
+  SHEET_URL: "",
+  // Mostra a barra para trocar entre as versões (use true só para conferir a página).
+  SHOW_SWITCHER: false
+};
+/* ==================================================== */
+
+var VARIANTS = {
+  medo: {
+    eyebrow: "Para quem é MEI",
+    title: 'Não perca seu MEI nem sua <em>aposentadoria</em> por causa de um boleto esquecido',
+    sub: "O Tô em Dia te lembra do DAS pelo WhatsApp antes do dia 20, cobra quem te deve e anota quanto você ganhou. Sem baixar aplicativo.",
+    painTitle: "O DAS vence todo dia 20. Esquecer custa caro.",
+    stats: [
+      ["404 mil", "MEIs foram avisados pela Receita em 2026 por dívidas. Quem não regularizar pode ser desenquadrado em 1º de janeiro de 2027."],
+      ["Todo mês", "o DAS precisa ser pago, mesmo que você não tenha faturado nada."],
+      ["INSS", "Mês sem DAS pago não conta para o INSS: auxílio-doença, salário-maternidade e aposentadoria."]
+    ],
+    src: "Fonte: Receita Federal, termo de exclusão do Simples Nacional, março de 2026.",
+    formTitle: "Entre na lista e nunca mais esqueça o DAS",
+    chat: [
+      ["in", 'Oi, Ana! O seu DAS de outubro vence <b>dia 20</b>: R$ 86,05.<span class="pay">Pagar no site oficial →</span>', "09:00"],
+      ["out", "Já paguei!", "09:12"],
+      ["in", "Boa! Seu MEI está em dia. Te lembro de novo em novembro.", "09:12"]
+    ],
+    feat: "medo"
+  },
+  calote: {
+    eyebrow: "Para quem trabalha por conta",
+    title: 'Receba de quem te deve <em>sem passar vergonha</em>',
+    sub: "O Tô em Dia prepara a mensagem de cobrança com seu Pix e te avisa quem está atrasado. E ainda lembra do seu DAS antes do dia 20.",
+    painTitle: "Fez o serviço e o cliente sumiu? Você não está sozinho.",
+    stats: [
+      ["1 em 4", "pequenos negócios sofre com inadimplência no Brasil."],
+      ["Quase 84 mi", "de brasileiros estão com contas atrasadas. Cobrar virou parte do trabalho."],
+      ["1 toque", "Com a mensagem pronta, você cobra sem ficar sem graça."]
+    ],
+    src: "Fontes: Sebrae (Pulso dos Pequenos Negócios) e Serasa (Mapa da Inadimplência, 2026).",
+    formTitle: "Entre na lista e pare de levar calote",
+    chat: [
+      ["in", "A <b>Joana</b> te deve R$ 80,00 há 5 dias (escova). Quer que eu prepare a cobrança?", "10:30"],
+      ["out", "Quero", "10:31"],
+      ["in", 'Pronto: "Oi Joana, tudo bem? Passando pra lembrar dos R$ 80 da escova do dia 15. Meu Pix: ana@email.com. Obrigada!"<span class="pay">Enviar para a Joana →</span>', "10:31"]
+    ],
+    feat: "calote"
+  },
+  audio: {
+    eyebrow: "Para quem é MEI",
+    title: 'Saiba quanto você ganhou no mês <em>só mandando um áudio</em>',
+    sub: 'Recebeu? Manda um áudio: "recebi 150 da Dona Maria". O Tô em Dia soma tudo, avisa do limite do MEI e lembra do seu DAS.',
+    painTitle: "Caderninho some. Conta de cabeça erra.",
+    stats: [
+      ["R$ 81 mil", "por ano é o limite do MEI. Passou disso, muda tudo no seu imposto."],
+      ["31 de maio", "é o prazo da declaração anual. Sem saber quanto ganhou, ela vira dor de cabeça."],
+      ["10 segundos", "é o tempo de mandar um áudio. O resto ele faz."]
+    ],
+    src: "Regras do MEI em 2026: limite anual de R$ 81 mil e declaração (DASN-SIMEI) até 31 de maio.",
+    formTitle: "Entre na lista e organize seu dinheiro pelo WhatsApp",
+    chat: [
+      ["out", '<span class="audio">▶ <i></i> 0:04</span>', "18:40"],
+      ["in", "Anotado! <b>+ R$ 150,00</b> da Dona Maria.", "18:40"],
+      ["in", "Em outubro você já ganhou <b>R$ 3.420,00</b>. No ano: R$ 31.870 de R$ 81.000 do limite do MEI.", "18:40"]
+    ],
+    feat: "audio"
+  }
+};
+
+var params = new URLSearchParams(location.search);
+var current = VARIANTS[params.get("v")] ? params.get("v") : "medo";
+
+function render(key) {
+  var v = VARIANTS[key];
+  current = key;
+  document.querySelector('[data-v="eyebrow"]').textContent = v.eyebrow;
+  document.querySelector('[data-v="title"]').innerHTML = v.title;
+  document.querySelector('[data-v="sub"]').textContent = v.sub;
+  document.querySelector('[data-v="painTitle"]').textContent = v.painTitle;
+  document.querySelector('[data-v="src"]').textContent = v.src;
+  document.querySelector('[data-v="formTitle"]').textContent = v.formTitle;
+  document.querySelector('[data-v="stats"]').innerHTML = v.stats.map(function (s) {
+    return '<div class="stat"><b>' + s[0] + "</b><p>" + s[1] + "</p></div>";
+  }).join("");
+  document.querySelector('[data-v="chat"]').innerHTML = v.chat.map(function (m) {
+    return '<div class="msg ' + m[0] + '">' + m[1] + "<time>" + m[2] + "</time></div>";
+  }).join("");
+  document.querySelectorAll("[data-feat]").forEach(function (el) {
+    el.classList.toggle("hl", el.getAttribute("data-feat") === v.feat);
+  });
+  document.querySelectorAll(".switcher button").forEach(function (b) {
+    b.setAttribute("aria-pressed", String(b.getAttribute("data-key") === key));
+  });
+}
+render(current);
+
+if (CONFIG.SHOW_SWITCHER) {
+  var bar = document.createElement("div");
+  bar.className = "switcher";
+  bar.innerHTML = '<button data-key="medo">1 · Medo</button><button data-key="calote">2 · Calote</button><button data-key="audio">3 · Áudio</button>';
+  bar.addEventListener("click", function (e) {
+    var k = e.target.getAttribute("data-key");
+    if (k) { render(k); window.scrollTo({ top: 0 }); }
+  });
+  document.body.appendChild(bar);
+  render(current);
+}
+
+/* Pixel da Meta (só carrega se tiver ID) */
+function track(event, data, custom) {
+  if (window.fbq) window.fbq(custom ? "trackCustom" : "track", event, data || {});
+}
+if (CONFIG.PIXEL_ID) {
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq("init", CONFIG.PIXEL_ID);
+  fbq("track", "PageView");
+}
+document.querySelectorAll("[data-cta]").forEach(function (a) {
+  a.addEventListener("click", function () { track("CliqueCTA", { versao: current, local: a.getAttribute("data-cta") }, true); });
+});
+
+/* Formulário */
+var whats = document.getElementById("whats");
+whats.addEventListener("input", function () {
+  var d = whats.value.replace(/\D/g, "").replace(/^55(?=\d{10,11}$)/, "").slice(0, 11);
+  var out = d;
+  if (d.length > 2) out = "(" + d.slice(0, 2) + ") " + d.slice(2);
+  if (d.length > 7) out = "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+  whats.value = out;
+});
+
+function setErr(id, msg) {
+  var el = document.getElementById(id);
+  if (el.type !== "checkbox") el.setAttribute("aria-invalid", msg ? "true" : "false");
+  document.getElementById(id + "-err").textContent = msg || "";
+  return !msg;
+}
+
+document.getElementById("form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var nome = document.getElementById("nome").value.trim();
+  var fone = whats.value.replace(/\D/g, "");
+  var trabalho = document.getElementById("trabalho").value;
+  var das = document.getElementById("das").value;
+  var ok = document.getElementById("ok").checked;
+  var valid = [
+    setErr("nome", nome ? "" : "Escreva seu nome."),
+    setErr("whats", /^[1-9]{2}9\d{8}$/.test(fone) ? "" : "Escreva um celular com DDD. Ex: (11) 91234-5678"),
+    setErr("trabalho", trabalho ? "" : "Escolha o que você faz."),
+    setErr("das", das ? "" : "Escolha uma opção."),
+    setErr("ok", ok ? "" : "Marque para a gente poder te chamar no WhatsApp.")
+  ].every(Boolean);
+  if (!valid) return;
+
+  var btn = document.getElementById("send");
+  btn.disabled = true;
+  btn.textContent = "Enviando…";
+
+  var lead = {
+    data: new Date().toISOString(),
+    nome: nome,
+    whatsapp: "55" + fone,
+    trabalho: trabalho,
+    das_atrasado: das,
+    versao: current,
+    utm_source: params.get("utm_source") || "",
+    utm_campaign: params.get("utm_campaign") || "",
+    utm_content: params.get("utm_content") || ""
+  };
+
+  function finish() {
+    track("Lead", { content_name: current });
+    document.getElementById("form").style.display = "none";
+    var done = document.getElementById("done");
+    done.style.display = "block";
+    if (CONFIG.WHATSAPP) {
+      var zap = document.getElementById("zap");
+      zap.href = "https://wa.me/" + CONFIG.WHATSAPP + "?text=" + encodeURIComponent("Oi! Sou " + nome + " e entrei na lista do Tô em Dia. Quero minha vaga de fundador.");
+      zap.hidden = false;
+    }
+    done.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  if (CONFIG.SHEET_URL) {
+    fetch(CONFIG.SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(lead) })
+      .then(finish, finish);
+  } else {
+    finish();
+  }
+});
+</script>
+</body>
+</html>
