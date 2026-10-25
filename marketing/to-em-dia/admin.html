@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0B5D3B">
+<title>Painel · Tô em Dia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+/* Painel do dono: lista de cadastros em cartões, pensado para o celular. */
+:root {
+  --green: #0B5D3B;
+  --green-soft: #E8F4EC;
+  --sun: #FFB020;
+  --alert: #D9480F;
+  --ink: #14201A;
+  --muted: #5B6B62;
+  --line: #DCE7E0;
+  --paper: #FFFFFF;
+  --ground: #F4F7F5;
+  --zap: #1FA855;
+  --display: "Poppins", "Segoe UI", system-ui, sans-serif;
+  --body: "Nunito Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ground); color: var(--ink); font: 16px/1.5 var(--body); }
+h1, h2 { font-family: var(--display); margin: 0; line-height: 1.2; }
+.wrap { max-width: 720px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+button, input { font: inherit; }
+button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 14px; border: 0; font-weight: 700; cursor: pointer; text-decoration: none; }
+.btn.primary { background: var(--green); color: #fff; }
+.btn.ghost { background: transparent; color: var(--green); }
+.btn:disabled { opacity: .6; cursor: default; }
+[hidden] { display: none !important; }
+
+/* Login */
+.login { min-height: 100vh; display: grid; place-items: center; padding-block: 32px; }
+.login .card { width: 100%; max-width: 380px; background: var(--paper); border-radius: 22px; padding: 26px 22px; box-shadow: 0 10px 30px rgba(11,93,59,.12); }
+.brand { display: flex; align-items: center; gap: 10px; font: 800 20px var(--display); color: var(--green); }
+.brand svg { width: 32px; height: 32px; }
+.login h1 { font-size: 22px; margin-top: 18px; }
+.login p { color: var(--muted); margin: 4px 0 18px; }
+label { display: grid; gap: 6px; font-weight: 700; margin-bottom: 14px; }
+input[type=email], input[type=password], input[type=search] { min-height: 52px; border-radius: 12px; border: 2px solid var(--line); padding: 0 14px; font-size: 17px; background: #fff; color: var(--ink); width: 100%; }
+input:focus { border-color: var(--green); outline: none; }
+.msg-err { color: #B42318; font-weight: 700; font-size: 15px; min-height: 22px; }
+
+/* Painel */
+.top { background: var(--green); color: #fff; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 60px; }
+.top .brand { color: #fff; font-size: 18px; }
+.top .btn.ghost { color: #fff; min-height: 44px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 16px; }
+.stat { background: var(--paper); border-radius: 16px; padding: 12px 8px; text-align: center; }
+.stat b { display: block; font: 800 24px var(--display); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12.5px; color: var(--muted); font-weight: 700; }
+.stat.green b { color: var(--green); }
+.versions { background: var(--paper); border-radius: 16px; padding: 12px 14px; margin-top: 8px; font-size: 14px; overflow-x: auto; }
+.versions table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.versions th, .versions td { padding: 6px 4px; text-align: right; white-space: nowrap; }
+.versions th:first-child, .versions td:first-child { text-align: left; }
+.versions th { color: var(--muted); font-weight: 700; font-size: 12.5px; }
+.tools { display: grid; gap: 10px; margin-top: 16px; }
+.chips { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; background: #E3EAE6; border-radius: 14px; padding: 4px; }
+.chips button { min-height: 42px; border: 0; border-radius: 10px; background: transparent; font-weight: 700; font-size: 14px; color: var(--muted); cursor: pointer; }
+.chips button[aria-pressed=true] { background: var(--paper); color: var(--green); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.list { display: grid; gap: 10px; margin: 14px 0 40px; }
+.lead { background: var(--paper); border-radius: 18px; padding: 14px; display: grid; gap: 10px; }
+.lead .row { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; }
+.lead .name { font: 700 18px var(--display); word-break: break-word; }
+.lead .phone { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lead .when { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+.tag { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--green-soft); color: var(--green); white-space: nowrap; }
+.tag.paid { background: #FFF1D6; color: #8A5300; }
+.actions { display: grid; grid-template-columns: 1fr auto; gap: 8px; }
+.btn.zap { background: var(--zap); color: #fff; }
+.btn.mark { background: var(--ground); color: var(--ink); border: 1px solid var(--line); }
+.btn.mark[aria-pressed=true] { background: #FFF1D6; border-color: #F2C26B; color: #8A5300; }
+.empty { text-align: center; color: var(--muted); padding: 40px 10px; background: var(--paper); border-radius: 18px; }
+.foot { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 13px; margin-top: 8px; }
+@media (max-width: 380px) { .stat b { font-size: 20px; } }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<main class="login wrap" id="login" hidden>
+  <div class="card">
+    <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#0B5D3B"/><path d="M11 21l6 6 12-14" fill="none" stroke="#FFB020" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Tô em Dia</div>
+    <h1>Painel do administrador</h1>
+    <p>Entre com o e-mail e a senha do seu usuário no Supabase.</p>
+    <form id="login-form" novalidate>
+      <label>E-mail <input type="email" id="email" autocomplete="username" required></label>
+      <label>Senha <input type="password" id="senha" autocomplete="current-password" required></label>
+      <p class="msg-err" id="login-err" role="alert"></p>
+      <button class="btn primary" type="submit" id="login-btn" style="width:100%">Entrar</button>
+    </form>
+  </div>
+</main>
+
+<!-- PAINEL -->
+<div id="panel" hidden>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="#fff"/><path d="M11 21l6 6 12-14" fill="none" stroke="#0B5D3B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>Cadastros</div>
+      <button class="btn ghost" id="logout" type="button">Sair</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="stats" aria-label="Resumo">
+      <div class="stat"><b id="s-total">0</b><span>Total</span></div>
+      <div class="stat"><b id="s-hoje">0</b><span>Hoje</span></div>
+      <div class="stat"><b id="s-chamados">0</b><span>Chamados</span></div>
+      <div class="stat green"><b id="s-pagos">0</b><span>Pagaram</span></div>
+    </section>
+    <section class="versions" aria-label="Resultado por versão do anúncio">
+      <table>
+        <thead><tr><th>Versão</th><th>Cadastros</th><th>Pagaram</th><th>% pagou</th></tr></thead>
+        <tbody id="v-body"></tbody>
+      </table>
+    </section>
+    <section class="tools">
+      <div class="chips" role="group" aria-label="Filtrar">
+        <button type="button" data-f="todos" aria-pressed="true">Todos</button>
+        <button type="button" data-f="novos" aria-pressed="false">Novos</button>
+        <button type="button" data-f="chamados" aria-pressed="false">Chamados</button>
+        <button type="button" data-f="pagos" aria-pressed="false">Pagaram</button>
+      </div>
+      <input type="search" id="busca" placeholder="Buscar por nome ou número" aria-label="Buscar por nome ou número">
+      <div class="foot"><span id="updated">Carregando…</span><button class="btn ghost" id="refresh" type="button" style="min-height:40px">Atualizar</button></div>
+    </section>
+    <section class="list" id="list" aria-live="polite"></section>
+  </main>
+</div>
+
+<!-- Sem acesso -->
+<main class="login wrap" id="denied" hidden>
+  <div class="card">
+    <h1>Sem acesso</h1>
+    <p>Essa conta não é administradora do Tô em Dia.</p>
+    <button class="btn primary" type="button" id="denied-out" style="width:100%">Sair</button>
+  </div>
+</main>
+
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+var CONFIG = window.CONFIG || {};
+var $ = function (id) { return document.getElementById(id); };
+var sb = null;
+var leads = [];
+var filtro = "todos";
+var VERSOES = { medo: "1 · Medo", calote: "2 · Calote", audio: "3 · Áudio" };
+
+function show(view) {
+  ["login", "panel", "denied"].forEach(function (v) { $(v).hidden = v !== view; });
+}
+
+if (!CONFIG.SUPABASE_URL || !CONFIG.SUPABASE_ANON_KEY || !window.supabase) {
+  show("login");
+  $("login-err").textContent = "Configuração pendente: preencha SUPABASE_URL e SUPABASE_ANON_KEY no config.js.";
+  $("login-btn").disabled = true;
+} else {
+  sb = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+  sb.auth.getSession().then(function (r) { r.data.session ? enter() : show("login"); });
+}
+
+$("login-form").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var email = $("email").value.trim();
+  var senha = $("senha").value;
+  if (!email || !senha) { $("login-err").textContent = "Preencha e-mail e senha."; return; }
+  $("login-btn").disabled = true;
+  $("login-btn").textContent = "Entrando…";
+  sb.auth.signInWithPassword({ email: email, password: senha }).then(function (r) {
+    $("login-btn").disabled = false;
+    $("login-btn").textContent = "Entrar";
+    if (r.error) {
+      $("login-err").textContent = /invalid/i.test(r.error.message) ? "E-mail ou senha incorretos." : "Não foi possível entrar. Tente de novo.";
+      return;
+    }
+    $("senha").value = "";
+    enter();
+  });
+});
+
+function logout() { sb.auth.signOut().then(function () { leads = []; $("list").replaceChildren(); show("login"); }); }
+$("logout").addEventListener("click", logout);
+$("denied-out").addEventListener("click", logout);
+
+function enter() {
+  sb.auth.getUser().then(function (r) {
+    var user = r.data.user;
+    if (!user) return show("login");
+    sb.from("admins").select("user_id").eq("user_id", user.id).maybeSingle().then(function (a) {
+      if (!a.data) return show("denied");
+      show("panel");
+      load();
+    });
+  });
+}
+
+function load() {
+  $("updated").textContent = "Atualizando…";
+  sb.from("leads")
+    .select("id, created_at, nome, whatsapp, versao, chamado_em, pagou_em")
+    .order("created_at", { ascending: false })
+    .limit(5000)
+    .then(function (r) {
+      if (r.error) { $("updated").textContent = "Erro ao carregar. Toque em Atualizar."; return; }
+      leads = r.data || [];
+      $("updated").textContent = "Atualizado às " + new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+      render();
+    });
+}
+$("refresh").addEventListener("click", load);
+setInterval(function () { if (!$("panel").hidden && document.visibilityState === "visible") load(); }, 60000);
+
+document.querySelectorAll("[data-f]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    filtro = b.getAttribute("data-f");
+    document.querySelectorAll("[data-f]").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+    render();
+  });
+});
+$("busca").addEventListener("input", render);
+
+function fmtPhone(w) {
+  var d = String(w).replace(/^55/, "");
+  return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+}
+function fmtWhen(iso) {
+  var dt = new Date(iso);
+  return dt.toLocaleDateString("pt-BR") + " às " + dt.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
+}
+function isToday(iso) { return new Date(iso).toDateString() === new Date().toDateString(); }
+function el(tag, cls, text) {
+  var n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+}
+
+function render() {
+  $("s-total").textContent = leads.length;
+  $("s-hoje").textContent = leads.filter(function (l) { return isToday(l.created_at); }).length;
+  $("s-chamados").textContent = leads.filter(function (l) { return l.chamado_em; }).length;
+  $("s-pagos").textContent = leads.filter(function (l) { return l.pagou_em; }).length;
+
+  var vb = $("v-body");
+  vb.replaceChildren();
+  Object.keys(VERSOES).forEach(function (k) {
+    var all = leads.filter(function (l) { return l.versao === k; });
+    var paid = all.filter(function (l) { return l.pagou_em; }).length;
+    var tr = document.createElement("tr");
+    [VERSOES[k], all.length, paid, all.length ? Math.round((paid / all.length) * 100) + "%" : "–"].forEach(function (v) { tr.appendChild(el("td", null, String(v))); });
+    vb.appendChild(tr);
+  });
+
+  var q = $("busca").value.trim().toLowerCase();
+  var qd = q.replace(/\D/g, "");
+  var rows = leads.filter(function (l) {
+    if (filtro === "novos" && l.chamado_em) return false;
+    if (filtro === "chamados" && !l.chamado_em) return false;
+    if (filtro === "pagos" && !l.pagou_em) return false;
+    if (!q) return true;
+    return l.nome.toLowerCase().indexOf(q) >= 0 || (qd && l.whatsapp.indexOf(qd) >= 0);
+  });
+
+  var list = $("list");
+  list.replaceChildren();
+  if (!rows.length) {
+    list.appendChild(el("div", "empty", leads.length ? "Ninguém nesse filtro." : "Ainda não chegou nenhum cadastro. Assim que alguém se cadastrar na página, aparece aqui."));
+    return;
+  }
+  rows.forEach(function (l) {
+    var card = el("article", "lead");
+    var row = el("div", "row");
+    var info = el("div");
+    info.appendChild(el("div", "name", l.nome));
+    info.appendChild(el("div", "phone", fmtPhone(l.whatsapp)));
+    info.appendChild(el("div", "when", fmtWhen(l.created_at) + (l.chamado_em ? " · chamado" : "")));
+    row.appendChild(info);
+    var tags = el("div");
+    tags.style.cssText = "display:grid;gap:4px;justify-items:end";
+    if (l.versao) tags.appendChild(el("span", "tag", VERSOES[l.versao] || l.versao));
+    if (l.pagou_em) tags.appendChild(el("span", "tag paid", "Pagou"));
+    row.appendChild(tags);
+    card.appendChild(row);
+
+    var actions = el("div", "actions");
+    var zap = el("a", "btn zap", l.chamado_em ? "Chamar de novo" : "Chamar no WhatsApp");
+    var primeiro = (l.nome.split(/\s+/)[0] || l.nome);
+    zap.href = "https://wa.me/" + l.whatsapp + "?text=" + encodeURIComponent((CONFIG.MENSAGEM_ADM || "Oi, {nome}!").replace("{nome}", primeiro));
+    zap.target = "_blank";
+    zap.rel = "noopener";
+    zap.addEventListener("click", function () {
+      if (!l.chamado_em) update(l, { chamado_em: new Date().toISOString() });
+    });
+    var mark = el("button", "btn mark", l.pagou_em ? "Pagou ✓" : "Pagou?");
+    mark.type = "button";
+    mark.setAttribute("aria-pressed", String(!!l.pagou_em));
+    mark.addEventListener("click", function () {
+      update(l, { pagou_em: l.pagou_em ? null : new Date().toISOString() });
+    });
+    actions.appendChild(zap);
+    actions.appendChild(mark);
+    card.appendChild(actions);
+    list.appendChild(card);
+  });
+}
+
+function update(lead, values) {
+  var before = { chamado_em: lead.chamado_em, pagou_em: lead.pagou_em };
+  Object.assign(lead, values);
+  render();
+  sb.from("leads").update(values).eq("id", lead.id).then(function (r) {
+    if (r.error) {
+      Object.assign(lead, before);
+      render();
+      $("updated").textContent = "Não foi possível salvar. Tente de novo.";
+    }
+  });
+}
+</script>
+</body>
+</html>

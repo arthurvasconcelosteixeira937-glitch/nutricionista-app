@@ -10,25 +10,66 @@ Só depois disso a gente constrói o app.
 
 ---
 
-## 1. Colocar a página no ar (30 minutos)
+## 1. Colocar a página no ar (grátis, uns 40 minutos)
 
-1. **Planilha dos cadastros**
-   - Abra [sheets.new](https://sheets.new).
-   - Vá em **Extensões → Apps Script**.
-   - Cole o arquivo `google-apps-script.js` e siga os passos escritos no topo dele.
-   - Copie o link que termina em `/exec`.
-2. **Configurar a página.** Abra `index.html` e, no começo do script (procure por `CONFIGURAÇÃO`), preencha:
-   - `WHATSAPP`: teu número com 55 e DDD, só números;
-   - `PIXEL_ID`: o ID do teu Pixel da Meta;
-   - `SHEET_URL`: o link `/exec` da planilha.
-3. **Publicar**
-   - Crie uma conta grátis no Netlify.
-   - Abra [app.netlify.com/drop](https://app.netlify.com/drop) e arraste a pasta `to-em-dia` inteira.
-   - Pronto, sai um link do tipo `https://nome.netlify.app`. Depois dá para ligar um domínio próprio.
-4. **Teste antes de gastar**
-   - Faça um cadastro de teste no celular.
-   - Confira se a linha apareceu na planilha.
-   - No Gerenciador de Eventos da Meta, confira se chegaram os eventos `PageView` e `Lead`.
+Você vai criar 2 contas grátis: **Supabase** (guarda os cadastros com segurança) e **Netlify** (coloca a página no ar com um link). Não precisa de domínio.
+
+### 1.1 Supabase: o banco de dados dos cadastros
+1. Crie uma conta em [supabase.com](https://supabase.com) e clique em **New project**.
+   - Escolha a região **South America (São Paulo)**.
+   - Guarde a senha do banco.
+2. No menu da esquerda, vá em **SQL Editor**, cole todo o arquivo `supabase.sql` e clique em **Run**.
+3. Crie o **seu usuário de administrador**:
+   - Vá em **Authentication → Users → Add user → Create new user**.
+   - Use o seu e-mail e uma **senha forte**, com mais de 12 caracteres misturando letras e números.
+   - Marque **Auto Confirm User**.
+4. Volte no **SQL Editor** e rode esta linha, trocando pelo seu e-mail:
+   ```sql
+   insert into public.admins (user_id) select id from auth.users where email = 'SEU-EMAIL@exemplo.com';
+   ```
+5. **Feche o cadastro de novos usuários,** para ninguém mais criar conta: vá em **Authentication → Sign In / Providers** e desligue **Allow new users to sign up**. Mesmo que alguém criasse uma conta, ela não veria nada, porque só quem está na tabela `admins` vê os cadastros.
+6. Vá em **Project Settings → API** e copie:
+   - o **Project URL**;
+   - a chave **anon public**. Essa pode ficar na página. **Nunca** use a chave `service_role`.
+
+### 1.2 Configurar
+Abra o arquivo `config.js` e preencha:
+- `WHATSAPP`: o WhatsApp da empresa, só números, com 55 e DDD;
+- `SUPABASE_URL` e `SUPABASE_ANON_KEY`: o que você copiou no passo anterior;
+- `PIXEL_ID`: o ID do seu Pixel da Meta.
+
+Se você esquecer o Supabase, a página mostra uma faixa vermelha avisando que os cadastros não estão sendo salvos.
+
+### 1.3 Netlify: colocar no ar
+1. Crie uma conta grátis em [netlify.com](https://netlify.com).
+2. Abra [app.netlify.com/drop](https://app.netlify.com/drop) no computador e arraste a pasta `to-em-dia` inteira, já com o `config.js` preenchido.
+3. Em **Site configuration → Change site name**, troque o nome. Por exemplo `toemdia`, que vira `https://toemdia.netlify.app`.
+
+Seus 2 links:
+- **Página de venda (para o anúncio):** `https://SEU-SITE.netlify.app`
+- **Painel do administrador (só você):** `https://SEU-SITE.netlify.app/admin.html`
+
+### 1.4 O painel do administrador
+- Entra com o e-mail e a senha que você criou no Supabase.
+- Mostra **nome, WhatsApp, data e hora** de cada cadastro, e de qual anúncio a pessoa veio.
+- O botão **"Chamar no WhatsApp"** abre a conversa com a pessoa e a mensagem já escrita. Ele também marca a pessoa como "chamado", para você não chamar duas vezes.
+- O botão **"Pagou?"** marca quem pagou a reserva. A tabela de cima mostra **quantos pagaram em cada versão**, que é o número que decide o teste.
+- Os filtros **Novos / Chamados / Pagaram** organizam o dia.
+
+### 1.5 Segurança (o que já está protegido)
+- **Visitantes da página só conseguem se cadastrar.** Ninguém consegue ler, mudar ou apagar a lista, nem com conhecimento técnico.
+- **Só a sua conta de admin vê os cadastros.** Outra conta que entrar no painel vê "Sem acesso".
+- **Freio contra robôs:** no máximo 30 cadastros por minuto, um por número de WhatsApp, e um campo escondido que só robô preenche.
+- **Nome com código malicioso aparece como texto** no painel e não é executado.
+- **O painel não aparece no Google.**
+- **Sua parte:** use uma senha forte, não passe a senha para ninguém e clique em **Sair** quando usar o painel num celular que não é seu.
+
+> **Atenção:** no plano grátis, o Supabase pausa o projeto se ficar **7 dias sem nenhum acesso**. Com anúncio rodando isso não acontece. Se você parar os anúncios por mais de uma semana, entre no painel de vez em quando.
+
+### 1.6 Teste antes de gastar
+1. Faça um cadastro de teste no celular e veja se ele aparece no painel.
+2. No Gerenciador de Eventos da Meta, confira se chegaram os eventos `PageView` e `Lead`.
+3. Apague o cadastro de teste. Dá para fazer em **Supabase → Table Editor → leads**.
 
 ### Os 3 links (um para cada versão)
 
@@ -38,7 +79,7 @@ Só depois disso a gente constrói o app.
 | 2 · Calote | `SEU-LINK/?v=calote&utm_source=meta&utm_content=calote` |
 | 3 · Áudio | `SEU-LINK/?v=audio&utm_source=meta&utm_content=audio` |
 
-A planilha guarda de qual versão veio cada pessoa (coluna `versao`).
+O painel mostra de qual versão veio cada pessoa e quantos pagaram em cada uma.
 
 ---
 
@@ -125,7 +166,7 @@ Grave com gente de verdade, de preferência alguém do público: manicure, pedre
 
 ## 5. Os números que importam
 
-Acompanhe na planilha e no Gerenciador de Anúncios:
+Acompanhe no painel do administrador e no Gerenciador de Anúncios:
 
 | Métrica | Bom | Ruim |
 |---|---|---|

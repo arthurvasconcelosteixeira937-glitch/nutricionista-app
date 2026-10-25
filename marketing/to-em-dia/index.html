@@ -335,6 +335,7 @@ footer .wrap { display: grid; gap: 8px; }
             </select>
             <span class="err" id="das-err"></span>
           </label>
+          <div aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"><label>Empresa <input id="empresa" name="empresa" tabindex="-1" autocomplete="off"></label></div>
           <label class="check"><input type="checkbox" id="ok"> <span>Aceito receber mensagens do Tô em Dia no WhatsApp sobre o lançamento. Posso sair quando quiser.</span></label>
           <span class="err" id="ok-err"></span>
           <button class="btn full" type="submit" id="send">Quero minha vaga de fundador</button>
@@ -356,19 +357,18 @@ footer .wrap { display: grid; gap: 8px; }
   </div>
 </footer>
 
+<script src="config.js"></script>
 <script>
-/* ===== CONFIGURAÇÃO: preencha antes de publicar ===== */
-var CONFIG = {
-  // Número que recebe os interessados (só números, com 55 e DDD). Ex: "5591981490959"
-  WHATSAPP: "",
-  // ID do Pixel da Meta (Gerenciador de Eventos). Deixe vazio para não usar.
-  PIXEL_ID: "",
-  // Link do Google Apps Script que salva os cadastros na planilha (veja o passo a passo).
-  SHEET_URL: "",
-  // Mostra a barra para trocar entre as versões (use true só para conferir a página).
-  SHOW_SWITCHER: false
-};
-/* ==================================================== */
+var CONFIG = window.CONFIG || {};
+
+// Aviso para o dono: sem o Supabase configurado, os cadastros não são salvos
+if (!CONFIG.SHOW_SWITCHER && (!CONFIG.SUPABASE_URL || !CONFIG.SUPABASE_ANON_KEY)) {
+  var warn = document.createElement("div");
+  warn.setAttribute("role", "alert");
+  warn.style.cssText = "background:#B42318;color:#fff;font-weight:700;padding:12px 18px;text-align:center";
+  warn.textContent = "Configuração pendente: os cadastros NÃO estão sendo salvos. Preencha SUPABASE_URL e SUPABASE_ANON_KEY no config.js.";
+  document.body.prepend(warn);
+}
 
 var VARIANTS = {
   medo: {
@@ -524,15 +524,14 @@ document.getElementById("form").addEventListener("submit", function (e) {
   btn.textContent = "Enviando…";
 
   var lead = {
-    data: new Date().toISOString(),
     nome: nome,
     whatsapp: "55" + fone,
     trabalho: trabalho,
     das_atrasado: das,
     versao: current,
-    utm_source: params.get("utm_source") || "",
-    utm_campaign: params.get("utm_campaign") || "",
-    utm_content: params.get("utm_content") || ""
+    utm_source: (params.get("utm_source") || "").slice(0, 80) || null,
+    utm_campaign: (params.get("utm_campaign") || "").slice(0, 120) || null,
+    utm_content: (params.get("utm_content") || "").slice(0, 120) || null
   };
 
   function finish() {
@@ -548,12 +547,30 @@ document.getElementById("form").addEventListener("submit", function (e) {
     done.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
-  if (CONFIG.SHEET_URL) {
-    fetch(CONFIG.SHEET_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "text/plain" }, body: JSON.stringify(lead) })
-      .then(finish, finish);
-  } else {
-    finish();
-  }
+  // Robôs preenchem o campo escondido: fingimos que deu certo e não salvamos
+  if (document.getElementById("empresa").value) return finish();
+  if (!CONFIG.SUPABASE_URL || !CONFIG.SUPABASE_ANON_KEY) return finish();
+
+  fetch(CONFIG.SUPABASE_URL.replace(/\/$/, "") + "/rest/v1/leads", {
+    method: "POST",
+    headers: {
+      apikey: CONFIG.SUPABASE_ANON_KEY,
+      Authorization: "Bearer " + CONFIG.SUPABASE_ANON_KEY,
+      "Content-Type": "application/json",
+      Prefer: "return=minimal"
+    },
+    body: JSON.stringify(lead)
+  })
+    .then(function (res) {
+      // 409 = esse WhatsApp já estava na lista: para a pessoa, deu certo
+      if (res.ok || res.status === 409) return finish();
+      throw new Error("status " + res.status);
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = "Quero minha vaga de fundador";
+      setErr("ok", "Não conseguimos salvar agora. Tente de novo em instantes.");
+    });
 });
 </script>
 </body>
