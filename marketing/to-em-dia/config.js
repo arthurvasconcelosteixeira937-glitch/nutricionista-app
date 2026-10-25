@@ -2,7 +2,7 @@
    É o único arquivo que você precisa editar. Veja o PLANO.md, passo 1. */
 window.CONFIG = {
   // WhatsApp da empresa: só números, com 55 e DDD. Ex: "5591981490959"
-  WHATSAPP: "",
+  WHATSAPP: "5591981490959",
 
   // Supabase → Project Settings → API → "Project URL" e "anon public key"
   SUPABASE_URL: "",
