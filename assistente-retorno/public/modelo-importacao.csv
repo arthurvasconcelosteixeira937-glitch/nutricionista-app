@@ -1,0 +1,6 @@
+nome;telefone;servico;ultima_visita;proxima_visita;valor;autorizou_mensagens;origem;observacoes
+Exemplo Ficticio Um;(11) 90000-1101;Coloração;15/06/2026;;180,00;sim;Atendimento no salão;
+Exemplo Ficticio Dois;11900001102;Corte feminino;02/08/2026;;90,00;;Instagram;Prefere sábado
+Exemplo Ficticio Tres;(21) 90000-1103;Manicure;20/09/2026;05/11/2026;40,00;sim;Indicação;
+Exemplo Ficticio Quatro;(11) 90000-1101;Escova;10/09/2026;;60,00;nao;WhatsApp;Telefone repetido de propósito
+Exemplo Ficticio Cinco;123;Hidratação;31/02/2026;;;sim;;Linha com erros de propósito
