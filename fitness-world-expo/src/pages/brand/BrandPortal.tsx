@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Navigate, Route, Routes, Link } from 'react-router-dom';
+import { Navigate, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import {
   BarChart3, Boxes, ExternalLink, LayoutDashboard, Package, Plus, Receipt, Save, Store, Trash2, Upload, Users, UserRound, Eye, Pencil, Lock,
 } from 'lucide-react';
@@ -351,7 +351,13 @@ function SellersPage({ view, session, st }: { view: View; session: Session; st: 
     id: uid('s-'), brandId: b.id, name: '', title: 'Consultor(a)', languages: ['Português'], bio: '', active: true, shifts: [{ day: 1, start: '10:00', end: '16:00' }],
     avatar: { body: 'masculino', skin: '#c68e6a', hair: 'curto', hairColor: '#1e1712', outfit: 'polo', outfitColor: b.booth.secondaryColor, pantsColor: '#1c1f26', height: 1.76, build: 'atletico', accessory: 'nenhum' },
   });
-  const openAsSeller = (s: Seller) => window.open(`${location.pathname}#/feira?modo=vendedor&vendedor=${s.id}`, '_blank');
+  const navigate = useNavigate();
+  const openAsSeller = (s: Seller) => {
+    // Abre em nova aba quando o navegador permite; senão, na mesma aba.
+    let w: Window | null = null;
+    try { w = window.open(`${location.pathname}#/feira?modo=vendedor&vendedor=${s.id}`, '_blank'); } catch { w = null; }
+    if (!w) navigate(`/feira?modo=vendedor&vendedor=${s.id}`);
+  };
   return (
     <>
       <PageTitle eyebrow="Atendimento humano" title="Vendedores" actions={<button className="btn-gold" onClick={() => setEdit(newSeller())}><Plus size={16} /> Novo vendedor</button>}>
